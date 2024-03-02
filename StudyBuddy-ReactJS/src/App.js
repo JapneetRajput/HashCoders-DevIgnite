@@ -10,6 +10,7 @@ import Logout from "./pages/Logout";
 import { useContext } from "react";
 import { AuthContext } from "./context/UserContext";
 import Error404 from "./pages/Error404";
+import LectureNotes from "./pages/LectureNotes";
 
 const Privateroute = () => {
   const auth = localStorage.getItem("token");
@@ -28,6 +29,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/logout" element={<Logout />} />
         </Route>
+        <Route path="/lecture-notes" element={<LectureNotes />} />
         <Route path="*" element={<Error404 />} />
       </Routes>
     </div>

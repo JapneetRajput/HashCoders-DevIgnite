@@ -36,3 +36,15 @@ export const profileUser = async (token) => {
     throw new Error("Server Error");
   }
 };
+
+// API call for profile
+export const summarizeLecture = async (text) => {
+  try {
+    // Return the response
+    return await Axios.post(apiUrl + "/lecture-summarize", {
+      text,
+    });
+  } catch (error) {
+    throw new Error("Server Error");
+  }
+};

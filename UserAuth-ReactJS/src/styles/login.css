@@ -1,0 +1,4 @@
+input:focus ~ .input-text,
+input:not(:placeholder-shown) ~ .input-text {
+  @apply text-[#2E0052] transform -translate-y-6 -translate-x-2 scale-75;
+}

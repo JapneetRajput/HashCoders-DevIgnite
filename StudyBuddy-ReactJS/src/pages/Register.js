@@ -5,23 +5,23 @@ import "../styles/login.css";
 import Loader from "../components/Loader";
 import { registerUser } from "../api/service";
 import { useNavigate } from "react-router-dom";
+import Quiz from "../components/Quiz"; // Import the Quiz component
 
 const Register = () => {
-  // Init states
   const [name, setName] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loader, setLoader] = useState(false);
+  const [quizOpen, setQuizOpen] = useState(false); // State to track quiz modal
 
   const navigate = useNavigate();
 
   const register = (event) => {
     event.preventDefault();
-    // Activate the loader
     setLoader(true);
-    // Create a new user
+
     if (name !== "" && mobileNumber !== "" && email !== "" && password !== "") {
       if (password !== confirmPassword) {
         setLoader(false);
@@ -42,15 +42,11 @@ const Register = () => {
         setConfirmPassword("");
         registerUser(user)
           .then((req, res) => {
-            // navigate("/");
-            console.log(req.data);
             const { status, message } = req.data;
-            console.log(status, message);
             if (status === "failed") {
               alert(message);
             } else {
-              // alert(message);
-              navigate("/");
+              setQuizOpen(true); // Open the quiz modal after successful registration
             }
           })
           .catch((error) => {
@@ -71,7 +67,6 @@ const Register = () => {
         </div>
       )}
       <div className="flex mt-12 sm:mt-6">
-        {/* <img src={logo} alt="logo" className="inline w-10 h-10" /> */}
         <h1 className=" text-[#2E0052] text-3xl ml-1 flex flex-row items-center font-semibold">
           EDORA
         </h1>
@@ -179,6 +174,20 @@ const Register = () => {
       <div className="bottom-0  bg-[#313638] flex flex-col items-center w-full h-10 pt-2">
         <span className="text-white">Edora | All rights reserved</span>
       </div>
+      {/* Modal for Quiz */}
+      {quizOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75 z-50">
+          <div className="bg-white p-6 rounded-lg">
+            <button
+              className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
+              onClick={() => setQuizOpen(false)} // Close the quiz modal
+            >
+              X
+            </button>
+            <Quiz />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

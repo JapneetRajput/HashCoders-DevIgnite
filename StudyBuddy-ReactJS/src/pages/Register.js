@@ -5,23 +5,23 @@ import "../styles/login.css";
 import Loader from "../components/Loader";
 import { registerUser } from "../api/service";
 import { useNavigate } from "react-router-dom";
+import Quiz from "../components/Quiz"; // Import the Quiz component
 
 const Register = () => {
-  // Init states
   const [name, setName] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loader, setLoader] = useState(false);
+  const [quizOpen, setQuizOpen] = useState(false); // State to track quiz modal
 
   const navigate = useNavigate();
 
   const register = (event) => {
     event.preventDefault();
-    // Activate the loader
     setLoader(true);
-    // Create a new user
+
     if (name !== "" && mobileNumber !== "" && email !== "" && password !== "") {
       if (password !== confirmPassword) {
         setLoader(false);
@@ -42,15 +42,11 @@ const Register = () => {
         setConfirmPassword("");
         registerUser(user)
           .then((req, res) => {
-            // navigate("/");
-            console.log(req.data);
             const { status, message } = req.data;
-            console.log(status, message);
             if (status === "failed") {
               alert(message);
             } else {
-              // alert(message);
-              navigate("/");
+              setQuizOpen(true); // Open the quiz modal after successful registration
             }
           })
           .catch((error) => {
@@ -66,21 +62,20 @@ const Register = () => {
   return (
     <div className="flex flex-col items-center">
       {loader && (
-        <div className="z-10 absolute flex flex-row items-center justify-center h-full w-full">
+        <div className="absolute z-10 flex flex-row items-center justify-center w-full h-full">
           <Loader />
         </div>
       )}
       <div className="flex mt-12 sm:mt-6">
-        {/* <img src={logo} alt="logo" className="inline w-10 h-10" /> */}
         <h1 className=" text-[#2E0052] text-3xl ml-1 flex flex-row items-center font-semibold">
-          Memories
+          EDORA
         </h1>
       </div>
       <form
         onSubmit={register}
         className="px-6 py-6 bg-white flex flex-col items-start border mt-12 sm:mt-6 border-[#D9D9D9] border-3px w-5/6 sm:w-1/3 rounded-xl"
       >
-        <p className="text-2xl ml-2">Register</p>
+        <p className="ml-2 text-2xl">Register</p>
         <TextBox
           text="text-md text-black"
           width="w-full"
@@ -158,27 +153,41 @@ const Register = () => {
         />
         <button
           type="submit"
-          className="w-full mb-4 text-white hover:text-[#2E0052] hover:border-[#2E0052] hover:border bg-[#2E0052] hover:bg-white rounded-lg h-12 mt-4"
+          className="shadow-none w-full mb-4 hover:text-[#313638] text-white border-[#232323] hover:bg-white bg-[#313638] border hover:border-[#313638]  rounded-lg h-10 mt-8"
         >
           Continue
         </button>
-        <h1 className="text-xs text-left mx-1">
-          By continuing, you agree to Memories privacy notice and conditions of
+        <h1 className="mx-1 text-xs text-left">
+          By continuing, you agree to Edora's privacy notice and conditions of
           use.
         </h1>
       </form>
-      <p className="mt-4 font-semibold">
+      <p className="my-5">
         Already have an account?{" "}
         <span
           onClick={() => navigate("/")}
-          className="underline cursor-pointer font-normal"
+          className="font-semibold underline cursor-pointer"
         >
           Sign in
         </span>
       </p>
-      <div className="fixed bottom-0  bg-[#2E0052] flex flex-col items-center w-full h-10 pt-2">
-        <span className="text-white">Memories | All rights reserved</span>
+      <div className="bottom-0  bg-[#313638] flex flex-col items-center w-full h-10 pt-2">
+        <span className="text-white">Edora | All rights reserved</span>
       </div>
+      {/* Modal for Quiz */}
+      {quizOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75 z-50">
+          <div className="bg-white p-6 rounded-lg">
+            <button
+              className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
+              onClick={() => setQuizOpen(false)} // Close the quiz modal
+            >
+              X
+            </button>
+            <Quiz />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

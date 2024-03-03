@@ -5,7 +5,6 @@ import "../styles/login.css";
 import Loader from "../components/Loader";
 import { registerUser } from "../api/service";
 import { useNavigate } from "react-router-dom";
-import Quiz from "../components/Quiz"; // Import the Quiz component
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -176,15 +175,14 @@ const Register = () => {
       </div>
       {/* Modal for Quiz */}
       {quizOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75 z-50">
-          <div className="bg-white p-6 rounded-lg">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-500 bg-opacity-75">
+          <div className="p-6 bg-white rounded-lg">
             <button
-              className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
+              className="absolute text-gray-600 top-2 right-2 hover:text-gray-800"
               onClick={() => setQuizOpen(false)} // Close the quiz modal
             >
               X
             </button>
-            <Quiz />
           </div>
         </div>
       )}

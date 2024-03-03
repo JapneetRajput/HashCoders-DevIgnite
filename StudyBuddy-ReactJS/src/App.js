@@ -15,6 +15,7 @@ import ChemistryPage from "./pages/chemistry";
 import PhysicsPage from "./pages/physics";
 import MathPage from "./pages/mathematics";
 import EnglishPage from "./pages/english";
+import QuizPage from "./pages/quiz";
 
 const Privateroute = () => {
   const auth = localStorage.getItem("token");
@@ -38,6 +39,7 @@ function App() {
         <Route path="/physics" element={<PhysicsPage />} />
         <Route path="/mathematics" element={<MathPage />} />
         <Route path="/english" element={<EnglishPage />} />
+        <Route path="/quiz" element={<QuizPage />} />
         <Route path="*" element={<Error404 />} />
       </Routes>
     </div>

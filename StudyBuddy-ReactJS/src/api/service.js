@@ -48,3 +48,17 @@ export const summarizeLecture = async (text) => {
     throw new Error("Server Error");
   }
 };
+
+export const generateSchedule = async (pref,method,modules, duration) => {
+  try {
+    // Return the response
+    return await Axios.post(apiUrl + "/generate-schedule", {
+      pref,
+      method,
+      modules,
+      duration
+    });
+  } catch (error) {
+    throw new Error("Server Error");
+  }
+};

@@ -25,8 +25,14 @@ const Home = () => {
           <SubjectCard subject="Chemistry" units={8} logo="https://api.iconify.design/game-icons:chemical-drop.svg?color=%233a4043" url="/chemistry" />
           <SubjectCard subject="Mathematics" units={8} logo="https://api.iconify.design/fluent:math-symbols-20-filled.svg?color=%233a4043" url="/mathematics" />
           <SubjectCard subject="English" units={8} logo="https://api.iconify.design/icon-park-outline:english.svg?color=%233a4043" url="/english" />
-
+         
         </div>
+        <button
+          className="shadow-none w-1/4 mb-4 hover:text-[#313638] text-white border-[#232323] hover:bg-white bg-[#313638] border hover:border-[#313638]  rounded-lg h-10 mt-8"
+          onClick={()=>{navigate("/syllabus")}}
+        >
+          Explore All Subjects
+        </button>
       </div>
 
     </>

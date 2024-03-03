@@ -74,6 +74,19 @@ app.post("/lecture-summarize", async (req, res) => {
   console.log(result.response.text());
 });
 
+app.post("/generate-schedule",async(req,res) => {
+  const pref = req.body.pref
+  const method = req.body.method
+  const modules = req.body.modules
+  const duration = req.body.duration
+
+  const prompt = `I want to generate a custom study schedule for a user studying in the CBSE board in 12th standard. The user will have a study time between 9:00am to 7:00pm. The slots in the schedules are 1 hr slots. The content that he wants to cover will be provided in the format subject-name{Module number : Intensity, Module Number: Intensity} for example Physics{Module1:Low,Module2:High},Chemistry{Module3:Medium}. Intensity of module decides time to be allotted for the module where Low = 2hrs Medium= 3 hrs and High=5hrs. You have to generate schedule for the user occypying time slots that are usually convinient for studying. The target modules are ${modules}. The user prefers studying during the ${pref} and wants to complete the targeted modules within ${duration}. The user likes ${method} for studying. Generate the schedule keeping all of the above in mind and give the output in the format 'Day1{9:00-Subject-Modulenumber, 10:00am-subject-modulenumber , ................ 5:00pm - subject-modulenumber,6:00pm - Physics-3,7:00pm - Physics-3},Day2{9:00-subject-modulenumber, 10:00am-subject-modulenumber, 11:00am - subject-modulenumber, ................ 5:00pm -subject-modulenumber,6:00pm - subject-modulenumber,7:00pm - subject-modulenumber}.The slots that are not being occupied should have value 'free' example day1{10:00-free} Deal with edge cases by increasing the duration if required. Ensure that there are no extra characters in the response except for the output in the required format. Please note give plan for onlyyy the modules with intensity provided!!! and please ensure to assign the correct number of slots to each module!! High Intesity - 5 slots, Medium Intensity- 3 slots and Low intensity - 2 slots. Make sure to evenly distribute the time slots`;
+  console.log(prompt)
+  const result = await model.generateContent(prompt);
+  console.log(result.response.text());
+  return res.send(result.response.text());
+});
+
 app.post("/generate-notes", async (req, res) => {
   const text = req.body.text;
 

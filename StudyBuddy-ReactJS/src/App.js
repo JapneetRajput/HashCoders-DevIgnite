@@ -11,6 +11,10 @@ import { useContext } from "react";
 import { AuthContext } from "./context/UserContext";
 import Error404 from "./pages/Error404";
 import LectureNotes from "./pages/LectureNotes";
+import ChemistryPage from "./pages/chemistry";
+import PhysicsPage from "./pages/physics";
+import MathPage from "./pages/mathematics";
+import EnglishPage from "./pages/english";
 
 const Privateroute = () => {
   const auth = localStorage.getItem("token");
@@ -30,6 +34,10 @@ function App() {
           <Route path="/logout" element={<Logout />} />
         </Route>
         <Route path="/lecture-notes" element={<LectureNotes />} />
+        <Route path="/chemistry" element={<ChemistryPage />} />
+        <Route path="/physics" element={<PhysicsPage />} />
+        <Route path="/mathematics" element={<MathPage />} />
+        <Route path="/english" element={<EnglishPage />} />
         <Route path="*" element={<Error404 />} />
       </Routes>
     </div>

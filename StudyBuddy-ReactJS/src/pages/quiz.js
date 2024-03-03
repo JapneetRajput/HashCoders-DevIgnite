@@ -5,7 +5,7 @@ function QuizPage() {
   return (
     <>
       <Start/>
-      </>
+    </>
   );
 }
 

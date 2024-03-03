@@ -5,13 +5,14 @@ import Navbar from "../components/Navbar";
 import Calendar from "../components/date-fns.js";
 import ProgressCard from "../components/Card/ProgressCard";
 import SubjectCard from "../components/Card/SubjectCard";
+import BottomNavbar from "../components/bottomNav";
 
 const Home = () => {
   const navigate = useNavigate();
 
   return (
     <>
-      {/* <Navbar /> */}
+      <Navbar />
       <div class="p-4 flex flex-row items-start left-2 justify-between">
         <div class="text-2xl pt-2 font-bold text-[#383838]"> Hi, user</div>
         <img class="w-6 pt-2 mr-2 font-bold text-[#383838]" src="https://api.iconify.design/clarity:notification-outline-badged.svg?color=%233a4043" alt="Notifications" />
@@ -19,7 +20,7 @@ const Home = () => {
       <ProgressCard />
       <div className="pt-8">
         <Calendar />
-        <div className="justify-center pt-8">
+        <div className="justify-center pt-8 mb-10">
           <h3 className="ml-4 font-semibold text-start">Subjects</h3>
           <SubjectCard subject="Physics" units={8} logo="https://api.iconify.design/ion:bulb-outline.svg?color=%233a4043" url="/physics" />
           <SubjectCard subject="Chemistry" units={8} logo="https://api.iconify.design/game-icons:chemical-drop.svg?color=%233a4043" url="/chemistry" />

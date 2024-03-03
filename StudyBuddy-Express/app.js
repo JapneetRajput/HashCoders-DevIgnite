@@ -11,6 +11,7 @@ import mongoose from "mongoose";
 // const Axios = require("axios");
 import bodyParser from "body-parser";
 import connectDB from "./config/database.js";
+import { searchYT,displayYTResults,aiRank } from "./helper/yt.js";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const genAI = new GoogleGenerativeAI("AIzaSyAhlaWdtv__3QhH8bL-kD4dEN0Mrrvn1Ts");
@@ -35,6 +36,32 @@ import usersRoutes from "./routes/users.js";
 
 // Mount the users routes at the /users path
 app.use("/api/users", usersRoutes);
+
+
+app.post("/get-video-resources",async(req,res)=>{
+  const query = req.body.query
+  const duration = req.body.duration
+  const depth = req.body.depth
+  try {
+    // Search YouTube for videos related to "big data analytics"
+    const response = await searchYT(query,5,duration,depth);
+
+    console.log(response);
+    console.log("128");
+    // Display YouTube search results and extract transcripts
+    const result = await displayYTResults(response);
+    console.log(result)
+
+    // Rank the transcripts based on duration and depth
+    const [id1,id2] = await aiRank();
+    console.log(id1," ",id2)
+
+    // console.log("Res:", res);
+    return res.send("Success")
+  } catch (error) {
+    console.error('Error:', error);
+  }
+})
 
 app.post("/lecture-summarize", async (req, res) => {
   const text = req.body.text;

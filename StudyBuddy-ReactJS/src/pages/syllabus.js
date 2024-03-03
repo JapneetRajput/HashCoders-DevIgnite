@@ -11,7 +11,7 @@ const SyllabusPage = () => {
         )
     );
     const [scheduleString, setScheduleString] = useState('');
-    const [schedule, setSchedule] = useState('')
+    const [sched, setSchedule] = useState()
 
     const handleUnitSelect = (unit) => {
         setUnitStates(unitStates.map(item => {
@@ -31,7 +31,7 @@ const SyllabusPage = () => {
         }));
     };
 
-    const createScheduleString = () => {
+    const createScheduleString = async() => {
         let schedule = '';
         unitStates.forEach(unitState => {
             if (unitState.selected) {
@@ -42,6 +42,8 @@ const SyllabusPage = () => {
             }
         });
         setScheduleString(schedule);
+        const resp = await generateSchedule("day","to study one subject in a day",schedule,"3")
+        setSchedule(resp.data)
     };
 
     const isAddToScheduleDisabled = unitStates.every(unit => !unit.selected || unit.intensity === '');
@@ -52,14 +54,8 @@ const SyllabusPage = () => {
     };
 
     useEffect(() => {
-      console.log(scheduleString)
-      getSchedule()
-    }, [scheduleString])
-
-    const getSchedule = async() => {
-        const response = await generateSchedule("day","to study one subject in a day",scheduleString,"3")
-      setSchedule(response)
-    }
+      console.log(sched)
+    }, [sched])
     
 
     return (
@@ -111,6 +107,12 @@ const SyllabusPage = () => {
                         <Toaster />
                     </button>
                 </div>
+                {/* Display the generated schedule in a textarea */}
+                <textarea
+                    className="w-full h-24 px-3 py-2 mt-4 border rounded-md"
+                    value={sched}
+                    readOnly
+                />
             </div>
         </div>
     );

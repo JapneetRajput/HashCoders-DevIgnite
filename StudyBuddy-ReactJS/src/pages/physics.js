@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import { useNavigate } from "react-router";
+
 
 const notify = () => toast.success('Added to Your Schedule!');
 
 const PhysicsPage = () => {
     const [unitStates, setUnitStates] = useState(units.map(unit => ({ unit, selected: false, intensity: '' })));
-
+    const navigate = useNavigate();
     const handleUnitSelect = (unit) => {
         setUnitStates(unitStates.map(item => {
             if (item.unit === unit) {
@@ -42,8 +44,28 @@ const PhysicsPage = () => {
                                     checked={unitState.selected}
                                     onChange={() => handleUnitSelect(unitState.unit)}
                                 />
-                                <span className='mx-2 text-sm text-start'>{unitState.unit}</span>
-                            </label>
+                                
+                            </label> 
+                            <span className='mx-2 text-sm text-start justify-start'>
+                            <details class="group">
+                    <summary class="flex cursor-pointer list-none items-center justify-between font-medium">
+                        <span>{unitState.unit}</span>
+                        <span class="transition group-open:rotate-180">
+                                <svg fill="none" height="24" shape-rendering="geometricPrecision"
+                                    stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.5" viewBox="0 0 24 24" width="24">
+                                    <path d="M6 9l6 6 6-6"></path>
+                                </svg>
+                            </span>
+                    </summary>
+                    <button
+                        type="submit" onClick={()=>{navigate("/electrostatics")}}
+                        className=' mx-auto shadow-none w-26 p-2 mb-4 hover:text-[#313638] text-white border-[#232323] hover:bg-white bg-[#313638] border hover:border-[#313638] rounded-lg h-10 mt-4'
+                    >
+                        Know More
+                    </button>
+                </details>
+                            </span>
                             <select
                                 className="px-3 py-1 border rounded-md"
                                 value={unitState.intensity}

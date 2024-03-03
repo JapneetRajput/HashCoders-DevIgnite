@@ -48,3 +48,13 @@ export const summarizeLecture = async (text) => {
     throw new Error("Server Error");
   }
 };
+
+// API call for profile
+export const generateModuleWiseQuiz = async (module) => {
+  try {
+    // Return the response
+    return await Axios.post(apiUrl + "/generate-quiz", module);
+  } catch (error) {
+    throw new Error("Server Error");
+  }
+};

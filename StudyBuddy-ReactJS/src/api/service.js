@@ -62,6 +62,7 @@ export const generateSchedule = async (pref,method,modules, duration) => {
     throw new Error("Server Error");
   }
 };
+
 // API call for profile
 export const generateModuleWiseQuiz = async (module) => {
   try {
